@@ -13,15 +13,9 @@
                 </td>
                 <td style="background:tomato; position: relative">
                     <div style="position: absolute; top: 0px; right:0px"> <button ng-click="addNewNote(4)">+</button></div>
-                    <div  style="height: 100%; width: 100%; position: relative" dd-drop-target="true" dropid="4"> 
-                        <div style="position: relative; top: 0px; right:0px"> <button ng-click="addNewNote(4)">+</button></div>
-                        <div class="task" ng-repeat="t in tasks | filter:{severity:4}" 
-                             contenteditable="true" 
-                             dd-draggable="true" itemid="{{t.id}}"><span style="background-color: black; color: white; float: left">...</span> 
-                            {{t.text}} {{t.severity}}</div>
-                        
-                        <task-item  ng-repeat="t in tasks | filter:{severity:4}" > </task-item>
-                        
+                    <div  style="height: 100%; width: 100%; position: relative" 
+                          dd-drop-target="true" dropid="4">                         
+                        <task-item  ng-repeat="t in tasks | filter:{severity:4}" t="t" /> 
                     <div>
                 </td>
             </tr>
@@ -35,12 +29,12 @@
                 <td style="width:1em;"></td>
             </tr>
             <tr>
-                <td style="background:tomato;">
-                    <div  style="height: 100%; width: 100%" dd-drop-target="true" dropid="3"> 
-                        <div class="task" ng-repeat="t in tasks | filter:{severity:3}" 
-                             contenteditable="true" 
-                             dd-draggable="true" itemid="{{t.id}}"> {{t.text}} {{t.severity}}</div>
-                    </div>
+                <td style="background:tomato; position: relative">
+                    <div style="position: absolute; top: 0px; right:0px"> <button ng-click="addNewNote(3)">+</button></div>
+                    <div  style="height: 100%; width: 100%; position: relative" 
+                          dd-drop-target="true" dropid="3">                         
+                        <task-item  ng-repeat="t in tasks | filter:{severity:3}" t="t" /> 
+                    <div>
                 </td>
                 <td>
                     <h1>u<br/>r<br/>g<br/>e<br/>n<br/>t</h1>

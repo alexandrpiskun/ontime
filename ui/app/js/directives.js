@@ -43,21 +43,18 @@ var DropTarget= function () {
 
 ontimeDirectives.directive("ddDropTarget", DropTarget);
 
-
 var TaskItem= function () {
  
     return {
         restrict: "E",
         scope:{t:"="}, 
-        link: function (scope, element, attributes, ctlr) {
-            // use tags
-            var tag  = "<div class='task'><span style='background-color: black; color: white; float: left'>...</span> {{text}} {{severity}}</div>";
-            
-            //var tag ="<h6>TAG</h6>";
-            element.append(tag);
-        }
+        template:
+                "<div class='task' style='display: flex;' dd-draggable='true' itemid='{{t.id}}' > \n\
+                 <div style=' flex:1; background: black; color: white; float: left; width:1em'>...</div>\n\
+                 <div style=' flex:4; padding-left:1em;' contenteditable='true' ng-model='t.text'/>\n\
+                 </div></div>"
     };
-}
+};
 
 ontimeDirectives.directive("taskItem", TaskItem);
 
