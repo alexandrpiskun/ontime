@@ -7,7 +7,7 @@ import javax.ws.rs.Produces;
 
 
 @Path("/")
-public class HelloResource {
+public class ChartResource {
 
     @GET
     @Path("{chartId}")
