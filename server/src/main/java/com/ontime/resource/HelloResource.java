@@ -2,6 +2,7 @@ package com.ontime.resource;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 
@@ -9,18 +10,29 @@ import javax.ws.rs.Produces;
 public class HelloResource {
 
     @GET
-    @Path("/")
+    @Path("{chartId}")
     @Produces("application/json")
-    public SomeJson getObject() {
+    public SomeJson getObject(@PathParam("chartId") String chartId) {
     	SomeJson json = new SomeJson();
-    	json.a = "aaa";
-    	json.b = "bbb";
+    	json.chartId = chartId;
+    	json.data = "bbb";
+        return json;
+    }
+    
+    @GET
+    @Path("{userId}/{chartId}")
+    @Produces("application/json")
+    public SomeJson getUserObject(@PathParam("userId") String userId, @PathParam("chartId") String chartId) {
+    	SomeJson json = new SomeJson();
+    	json.chartId = chartId;
+    	json.data = userId;
         return json;
     }
     
     public static class SomeJson {
-    	public String a;
-    	public String b;
+    	public String chartId;
+    	public String data;
+    	public int severity;
     }
 	
 }
