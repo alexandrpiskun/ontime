@@ -5,5 +5,16 @@
         <group name="Screen Generator">
             <file>file:/Users/opiskun/NetBeansProjects/ontime/app/index.html</file>
         </group>
+        <group name="Appery">
+            <file>file:/Users/opiskun/projects/my/ontime/ui/app/index.html</file>
+            <file>file:/Users/opiskun/projects/my/ontime/ui/app/js/controllers.js</file>
+            <file>file:/Users/opiskun/projects/my/ontime/ui/app/css/app.css</file>
+            <file>file:/Users/opiskun/projects/my/ontime/ui/app/js/directives.js</file>
+            <file>file:/Users/opiskun/projects/my/ontime/ui/app/partials/quater-form.html</file>
+            <file>file:/Users/opiskun/projects/my/ontime/ui/app/js/animations.js</file>
+        </group>
+        <group name="Ontime">
+            <file>file:/Users/opiskun/projects/my/ontime/ui/app/partials/quater-form.html</file>
+        </group>
     </open-files>
 </project-private>
