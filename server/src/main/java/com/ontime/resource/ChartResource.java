@@ -2,8 +2,8 @@ package com.ontime.resource;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -61,20 +61,15 @@ public class ChartResource {
       String msg = String.format("Cannot find chart %s", chartId);
       return Response.status(Status.NOT_FOUND).entity(msg).build();
     }
-    
-    SomeJson json = new SomeJson();
-    json.chartId = chartId;
-    json.data = text;
-    json.severity = severity;
-    this.storage.put(chartId, json);
+    chart = chartDao.update(chartId, text, severity);
     return Response.ok(chart).build();
   }
 
   @GET
   @Path("all")
   @Produces("application/json")
-  public Collection<SomeJson> readAll() {
-    return this.storage.values();
+  public List<Chart> readAll() {
+    return chartDao.getAll();
   }
 
   @GET
