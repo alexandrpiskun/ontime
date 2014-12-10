@@ -1,9 +1,12 @@
 package com.ontime.resource;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -11,74 +14,60 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.EntityNotFoundException;
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
+import com.ontime.model.Chart;
+import com.ontime.model.ChartDao;
 
 @Path("/api/v1/")
 @Singleton
 public class ChartResource {
-
-  public static final String CHART_ENTITY_NAME = "Chart";
-  
-  private DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-
   private Map<String, SomeJson> storage = new HashMap<>();
+  
+  private final ChartDao chartDao;
+  
+  @Inject
+  public ChartResource(ChartDao chartDao) {
+    this.chartDao = checkNotNull(chartDao, "chartDao is missing");
+  }
 
   @POST
   @Path("_save")
   @Produces("application/json")
-  public SomeJson createNewObject(@FormParam("data") String text,
-      @FormParam("severity") Integer severity) {
-    Entity chartEntity = new Entity(CHART_ENTITY_NAME);
-    chartEntity.setProperty("data", text);
-    chartEntity.setProperty("severity", severity);
-    Key result = datastore.put(chartEntity);
-    String shortenedID = ShortIdService.encode(result.getId());
-
-    SomeJson json = new SomeJson();
-    json.chartId = shortenedID;
-    json.data = text;
-    json.severity = severity;
-    return json;
+  public Chart createNewChart(@FormParam("data") String text, @FormParam("severity") Integer severity) {
+    return chartDao.createNewChart(text, severity);
   }
   
   @GET
   @Path("{chartId}")
   @Produces("application/json")
-  public SomeJson getObject(@PathParam("chartId") String chartId) {
-    long chartKeyId = ShortIdService.decode(chartId);
-    Key chartKey = KeyFactory.createKey(CHART_ENTITY_NAME, chartKeyId);
-    Entity chart = null;
-    try {
-      chart = datastore.get(chartKey);
-    } catch (EntityNotFoundException enf) {
+  public Response getChart(@PathParam("chartId") String chartId) {
+    Chart chart = chartDao.getById(chartId);
+    if (chart == null) {
+      String msg = String.format("Cannot find chart %s", chartId);
+      return Response.status(Status.NOT_FOUND).entity(msg).build();
     }
-    
-    SomeJson json = new SomeJson();
-    if (chart != null) {
-      json.chartId = chartId;
-      json.data = (String) chart.getProperty("data");
-      json.severity = ((Long) chart.getProperty("severity")).intValue();
-    }
-    return json;
+    return Response.ok(chart).build();
   }
 
   @POST
   @Path("{chartId}")
   @Produces("application/json")
-  public SomeJson createObject(@PathParam("chartId") String chartId,
+  public Response updateChart(@PathParam("chartId") String chartId,
       @FormParam("data") String text, @FormParam("severity") Integer severity) {
+    Chart chart = chartDao.getById(chartId);
+    if (chart == null) {
+      String msg = String.format("Cannot find chart %s", chartId);
+      return Response.status(Status.NOT_FOUND).entity(msg).build();
+    }
+    
     SomeJson json = new SomeJson();
     json.chartId = chartId;
     json.data = text;
     json.severity = severity;
     this.storage.put(chartId, json);
-    return json;
+    return Response.ok(chart).build();
   }
 
   @GET

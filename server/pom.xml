@@ -19,6 +19,7 @@
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
 
+		<guava.version>18.0</guava.version>
 		<jackson.core.version>2.4.4</jackson.core.version>
 		<guice.version>4.0-beta5</guice.version>
 		<resteasy.version>3.0.10.Final</resteasy.version>
@@ -36,6 +37,17 @@
 
 	<dependencies>
 
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.auto.value</groupId>
+			<artifactId>auto-value</artifactId>
+			<version>1.0-rc2</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -66,13 +78,13 @@
 			<artifactId>guice</artifactId>
 			<version>${guice.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-multibindings</artifactId>
 			<version>${guice.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-assistedinject</artifactId>
@@ -114,21 +126,21 @@
 			<version>${servlet-api.version}</version>
 			<scope>provided</scope>
 		</dependency>
-	 <dependency>
-	  <groupId>org.glassfish.jersey.containers</groupId>
-	  <artifactId>jersey-container-servlet</artifactId>
-	  <version>2.5.1</version>
-	 </dependency>
-	 <dependency>
-	  <groupId>org.glassfish.jersey.core</groupId>
-	  <artifactId>jersey-client</artifactId>
-	  <version>2.5.1</version>
-	 </dependency>
-	 <dependency>
-	  <groupId>org.glassfish.jersey.media</groupId>
-	  <artifactId>jersey-media-moxy</artifactId>
-	  <version>2.5.1</version>
-	 </dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-servlet</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-moxy</artifactId>
+			<version>2.5.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>

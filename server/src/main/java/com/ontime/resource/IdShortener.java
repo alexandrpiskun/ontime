@@ -1,6 +1,6 @@
 package com.ontime.resource;
 
-public class ShortIdService {
+public class IdShortener {
 
   public static final String ALPHABET = "23456789bcdfghjkmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ-_";
   public static final int BASE = ALPHABET.length();
