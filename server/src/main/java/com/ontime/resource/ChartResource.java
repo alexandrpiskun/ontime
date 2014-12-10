@@ -45,8 +45,7 @@ public class ChartResource {
   public Response getChart(@PathParam("chartId") String chartId) {
     Chart chart = chartDao.getById(chartId);
     if (chart == null) {
-      String msg = String.format("Cannot find chart %s", chartId);
-      return Response.status(Status.NOT_FOUND).entity(msg).build();
+      return Response.status(Status.NOT_FOUND).build();
     }
     return Response.ok(chart).build();
   }
@@ -58,8 +57,7 @@ public class ChartResource {
       @FormParam("data") String text, @FormParam("severity") Integer severity) {
     Chart chart = chartDao.getById(chartId);
     if (chart == null) {
-      String msg = String.format("Cannot find chart %s", chartId);
-      return Response.status(Status.NOT_FOUND).entity(msg).build();
+      return Response.status(Status.NOT_FOUND).build();
     }
     chart = chartDao.update(chartId, text, severity);
     return Response.ok(chart).build();
