@@ -18,17 +18,21 @@ ontimeFactories.factory('Task', ["$q",  function($q){
             }
         };
         Task.prototype = {
-              set: function(data){
+        		set: function(data){
                 angular.extend(this, data);  
               },
-              update:function(){ console.log('not implemented');},
-              delete:function(){ console.log('not implemented');}
-        }
+              	update : function(){ 
+            	console.log('not implemented');
+              },
+              'delete' : function(){ 
+            	console.log('not implemented');
+              }
+        };
         return Task;
 }]);
 
 
-ontimeFactories.factory('TaskManager', ["$q", "Task",  function($q, Task){
+ontimeFactories.factory('TaskManager', ["$q", "Task", "$http",  function($q, Task, $http){
         return {
             _taskPool:{}, 
             _tasks:[],
@@ -70,19 +74,14 @@ ontimeFactories.factory('TaskManager', ["$q", "Task",  function($q, Task){
             },
             
             loadAllTasks:function(){
+                var self = this;
                 var deferred = $q.defer();
-                        deferred.resolve( this._tasks
-                                /*[
-                                new Task({text:"task1", severity:4}),
-                                new Task({text:"task2", severity:3}),
-                                new Task({text:"task3", severity:3}),
-                                new Task({text:"task4", severity:2}),
-                                new Task({text:"task5", severity:2}),
-                                new Task({text:"task6", severity:2}),
-                                new Task({text:"task7", severity:1}),
-                                new Task({text:"task8", severity:1}),
-                                new Task({text:"task9", severity:1}),
-                                ]*/);
+                $http.get('/api/v1/all').success(function(data){
+                    data.forEach(function(item){
+                       self._tasks.push({id:item.id, text:item.data, severity: item.severity}); 
+                    });
+                    deferred.resolve( this._tasks);
+                });
                 return  deferred.promise;
             }
         };
