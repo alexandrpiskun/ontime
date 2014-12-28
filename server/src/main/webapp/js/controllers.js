@@ -28,14 +28,18 @@ ontimeControllers.controller('quaterFromCtrl', ['$scope','TaskManager',
       
       $scope.moveToBox = function(id, dropid) {
  
-        for (var index = 0; index < $scope.tasks.length; index++) {
-            var item = $scope.tasks[index];
+        /*for (var index = 0; index < $scope.tasks.length; index++) {
+           var item = $scope.tasks[index];
             if (item.id == id) {
                 item.severity =  dropid; //  should be changed 
                 break;
             }
-        }
-        $scope.$apply();
+        }*/
+    	  
+    	TaskManager.updateSeverity(id, newseverity).then(function(){
+    		$scope.tasks = data;
+    	});  
+        //$scope.$apply();
     };
       
   }]);

@@ -2,7 +2,7 @@ package com.ontime.model;
 
 import java.util.List;
 
-public interface ChartDao {
+public interface ChartDao { 
   static final String CHART_ENTITY_NAME = "Chart";
   
   Chart createNewChart(String data, int severity);

@@ -25,7 +25,7 @@ public class ChartDaoImpl implements ChartDao {
   public ChartDaoImpl(DatastoreService datastore) {
     this.datastore = checkNotNull(datastore, "datastore is missing");
   }
-  
+   
   @Override
   public Chart createNewChart(String data, int severity) {
     Entity chartEntity = new Entity(CHART_ENTITY_NAME);

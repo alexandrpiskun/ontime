@@ -51,7 +51,7 @@ var TaskItem= function () {
         template:
                 "<div class='task' style='display: flex; float: left' dd-draggable='true' itemid='{{t.id}}' > \n\
                  <div style=' flex:1; background: black; color: white; float: left; width:1em'>...</div>\n\
-                 <div style=' flex:4; padding-left:1em;' contenteditable='true' ng-model='t.text'/>\n\
+                 <div style=' flex:4; padding-left:1em;' contenteditable='true' ng-model='t.data'/>\n\
                  </div></div>"
     };
 };
