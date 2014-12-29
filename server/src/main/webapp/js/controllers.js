@@ -26,20 +26,14 @@ ontimeControllers.controller('quaterFromCtrl', ['$scope','TaskManager',
           });
       }
       
-      $scope.moveToBox = function(id, dropid) {
- 
-        /*for (var index = 0; index < $scope.tasks.length; index++) {
-           var item = $scope.tasks[index];
-            if (item.id == id) {
-                item.severity =  dropid; //  should be changed 
-                break;
-            }
-        }*/
-    	  
-    	TaskManager.updateSeverity(id, newseverity).then(function(){
+      $scope.updateTask = function(task){
+    	  alert(task.data);
+      }
+      
+      $scope.moveToBox = function(id, newseverity) {
+    	TaskManager.updateSeverity(id, newseverity).then(function(data){
     		$scope.tasks = data;
     	});  
-        //$scope.$apply();
     };
       
   }]);

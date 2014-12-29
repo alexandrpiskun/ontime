@@ -10,23 +10,9 @@ ontimeFactories.factory('Task', [ "$q", function($q) {
 		this.severity = 1;
 		this.data = '';
 		if (thatTask) {
-			this.set(thatTask);
+			$.extend(this,thatTask);
 		}
-		/*if (this.id == '') {
-			this.id = Math.floor(Math.random() * 10000);
-		}*/
-	}
-	;
-	Task.prototype = {
-		set : function(thatTask) {
-			$.extend(this, thatTask);
-		},
-		update : function() {
-			console.log('not implemented');
-		},
-		'delete' : function() {
-			console.log('not implemented');
-		}
+		return this;
 	};
 	return Task;
 } ]);
@@ -83,14 +69,14 @@ ontimeFactories
 								},
 
 								updateSeverity : function(id, severity) {
+									var deferred = $q.defer();
 									var i = 0;
-									taskslen = self._tasks.lenght;
-									for (i = 0; i < tasklen; i++) {
+									var self = this;
+									var taskslen = self._tasks.length;
+									for (i = 0; i < taskslen; i++) {
 										if (self._tasks[i].id == id) {
 											self._tasks[i].severity = severity;
-											$http// .post('/api/v1/'+id,
-													// task)
-											(
+											$http(
 													{
 														method : 'POST',
 														url : '/api/v1/' + id,
@@ -106,6 +92,7 @@ ontimeFactories
 											break;
 										}
 									}
+									return deferred.promise;
 								},
 
 								loadAllTasks : function() {
@@ -113,6 +100,7 @@ ontimeFactories
 									var deferred = $q.defer();
 									$http.get('/api/v1/all').success(
 											function(data) {
+												while (self._tasks.length) { self._tasks.pop(); };
 												data.forEach(function(item) {
 													self._tasks.push(item);
 												});

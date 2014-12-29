@@ -11,7 +11,7 @@ var Draggable = function () {
             element.attr("draggable", true);
  
             element.bind("dragstart", function(eventObject) {
-                eventObject.originalEvent.dataTransfer.setData("text", attributes.itemid);
+                eventObject.originalEvent.dataTransfer.setData("taskid", attributes.itemid);
             });
         }
     };
@@ -30,11 +30,9 @@ var DropTarget= function () {
             });
  
             element.bind("drop", function(eventObject) {
-                 
                 // invoke controller/scope move method
-                scope.moveToBox(parseInt(eventObject.originalEvent.dataTransfer.getData("text")), dropid);
- 
-                // cancel actual UI element from dropping, since the angular will recreate a the UI element
+            	var id = eventObject.originalEvent.dataTransfer.getData("taskid") ;
+                scope.moveToBox(id, dropid);
                 eventObject.preventDefault();
             });
         }
@@ -51,7 +49,7 @@ var TaskItem= function () {
         template:
                 "<div class='task' style='display: flex; float: left' dd-draggable='true' itemid='{{t.id}}' > \n\
                  <div style=' flex:1; background: black; color: white; float: left; width:1em'>...</div>\n\
-                 <div style=' flex:4; padding-left:1em;' contenteditable='true' ng-model='t.data'/>\n\
+                 <div style=' flex:4; padding-left:1em;' contenteditable='true' ng-model='t.data' ng-change='updateTask(t)'/>\n\
                  </div></div>"
     };
 };
