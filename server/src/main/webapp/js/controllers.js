@@ -27,7 +27,9 @@ ontimeControllers.controller('quaterFromCtrl', ['$scope','TaskManager',
       }
       
       $scope.updateTask = function(task){
-    	  alert(task.data);
+    	  TaskManager.updateTask(task).then(function(data){
+      		$scope.tasks = data;
+      	   });
       }
       
       $scope.moveToBox = function(id, newseverity) {

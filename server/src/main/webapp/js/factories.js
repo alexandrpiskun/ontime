@@ -95,6 +95,23 @@ ontimeFactories
 									return deferred.promise;
 								},
 
+								updateTask : function(task) {
+									var deferred = $q.defer();
+									var self = this;
+									$http(
+											{
+												method : 'POST',
+												url : '/api/v1/' + task.id,
+												headers : {
+													'Content-Type' : 'application/x-www-form-urlencoded'
+												},
+												data : $.param(task),
+											  }).success(function(resp) {
+												deferred.resolve(self._tasks);
+											});
+									return deferred.promise;
+								},
+								
 								loadAllTasks : function() {
 									var self = this;
 									var deferred = $q.defer();
