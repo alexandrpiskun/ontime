@@ -2,12 +2,11 @@ package com.ontime.resource;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -17,13 +16,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.google.common.base.Strings;
 import com.ontime.model.Chart;
 import com.ontime.model.ChartDao;
 
 @Path("/api/v1/")
 @Singleton
 public class ChartResource {
-  private Map<String, SomeJson> storage = new HashMap<>();
   
   private final ChartDao chartDao;
   
@@ -32,11 +31,19 @@ public class ChartResource {
     this.chartDao = checkNotNull(chartDao, "chartDao is missing");
   }
 
+  
   @POST
   @Path("_save")
   @Produces("application/json")
-  public Chart createNewChart(@FormParam("data") String text, @FormParam("severity") Integer severity) {
-    return chartDao.createNewChart(text, severity);
+  @Consumes("application/json")
+  public Chart saveChart(Chart chart) {
+  	if (Strings.isNullOrEmpty(chart.getId())) {
+  		return chartDao.createNewChart(chart);
+  	}
+  	else {
+  		return chartDao.update(chart.getId(), chart);
+  	}
+    
   }
   
   @GET
@@ -49,19 +56,8 @@ public class ChartResource {
     }
     return Response.ok(chart).build();
   }
-
-  @POST
-  @Path("{chartId}")
-  @Produces("application/json")
-  public Response updateChart(@PathParam("chartId") String chartId,
-      @FormParam("data") String text, @FormParam("severity") Integer severity) {
-    Chart chart = chartDao.getById(chartId);
-    if (chart == null) {
-      return Response.status(Status.NOT_FOUND).build();
-    }
-    chart = chartDao.update(chartId, text, severity);
-    return Response.ok(chart).build();
-  }
+  
+ 
 
   @GET
   @Path("all")
@@ -70,22 +66,6 @@ public class ChartResource {
     return chartDao.getAll();
   }
 
-  @GET
-  @Path("{userId}/{chartId}")
-  @Produces("application/json")
-  public SomeJson getUserObject(@PathParam("userId") String userId,
-      @PathParam("chartId") String chartId) {
-    SomeJson json = new SomeJson();
-    json.chartId = chartId;
-    json.data = userId;
-    this.storage.put(chartId, json);
-    return json;
-  }
-
-  public static class SomeJson {
-    public String chartId;
-    public String data;
-    public int severity;
-  }
+  
 
 }

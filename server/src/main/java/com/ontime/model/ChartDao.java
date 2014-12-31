@@ -5,8 +5,8 @@ import java.util.List;
 public interface ChartDao { 
   static final String CHART_ENTITY_NAME = "Chart";
   
-  Chart createNewChart(String data, int severity);
+  Chart createNewChart(Chart chart);
   Chart getById(String chartId);
-  Chart update(String chartId, String data, int severity);
+  Chart update(String chartId, Chart chart);
   List<Chart> getAll();
 }

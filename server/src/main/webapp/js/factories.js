@@ -124,6 +124,8 @@ ontimeFactories
 												deferred.resolve(self._tasks);
 											});
 									return deferred.promise;
-								}
+								}, 
+								
+								
 							};
 						} ]);
