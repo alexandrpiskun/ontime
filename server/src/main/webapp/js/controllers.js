@@ -10,14 +10,19 @@ ontimeControllers.controller('quaterFromCtrl', ['$scope','TaskManager',
       var self = this;
       
       $scope.tasks = [];
+      $scope.chart = null;
       
-      TaskManager.loadAllTasks().then(function(data){
-          $scope.tasks = data;
-          //$scope.$apply();
+      // init
+      
+      TaskManager.getById('4s24rNjjPr').then(function(data){
+          $scope.chart = data;
       });
       
+   
+      
+      // functions
       // http://stackoverflow.com/questions/14561676/angularjs-and-contenteditable-two-way-binding-doesnt-work-as-expected
-      $scope.addNewNote =  function(dropId){
+      /* $scope.addNewNote =  function(dropId){
           TaskManager.addNewTask(dropId).then(function(newId){
               TaskManager.loadAllTasks().then(function(data){
                  $scope.tasks = data;
@@ -35,8 +40,9 @@ ontimeControllers.controller('quaterFromCtrl', ['$scope','TaskManager',
       $scope.moveToBox = function(id, newseverity) {
     	TaskManager.updateSeverity(id, newseverity).then(function(data){
     		$scope.tasks = data;
-    	});  
-    };
+    	}); 
+    	 
+      };*/
       
   }]);
   

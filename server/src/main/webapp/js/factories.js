@@ -44,7 +44,47 @@ ontimeFactories
 								_load : function(id) {
 
 								},
+								
+								// core server
+								createChart: function(chart){
+									var self = this;
+									var deferred = $q.defer();
+									$http(
+											{
+												method : 'POST',
+												url : '/api/v1/_save',
+												headers : {
+													'Content-Type' : 'application/x-www-form-urlencoded'
+												},
+												data : $.param(task),
+											}).success(function(resp) {
+										self._tasks.push(resp);
+										deferred.resolve(resp);
+									});
+									return deferred.promise;
 
+								},
+								
+								updateChart: function(chart){
+									
+								},
+								
+								getById: function(id){
+									var self = this;
+									var deferred = $q.defer();
+
+									$http( {
+												method : 'GET',
+												url : '/api/v1/'+id,
+											}).success(function(resp) {
+										//self._tasks.push(resp);
+										deferred.resolve(resp);
+									});
+									return deferred.promise;
+
+								},
+								////////////////////////////////////////////////////
+								//helpers
 								addNewTask : function(task_severity) {
 									var self = this;
 									var deferred = $q.defer();
