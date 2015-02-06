@@ -64,11 +64,29 @@ ontimeFactories
 									return deferred.promise;
 
 								},
+																
+								getChartTemplate: function(severity) {
+									return { id:null, data:"", severity:severity, items:[ ] };
+									},
 								
 								updateChart: function(chart){
-									
+									var self = this;
+									var deferred = $q.defer();
+
+									$http( {
+												method : 'POST',
+												url : '/api/v1/_save',
+												headers : {
+													'Content-Type' : 'application/json'
+												},
+												data : JSON.stringify(chart),
+											}).success(function(resp) {
+										deferred.resolve(resp);
+									});
+									return deferred.promise;
+
 								},
-								
+
 								getById: function(id){
 									var self = this;
 									var deferred = $q.defer();
@@ -77,12 +95,13 @@ ontimeFactories
 												method : 'GET',
 												url : '/api/v1/'+id,
 											}).success(function(resp) {
-										//self._tasks.push(resp);
 										deferred.resolve(resp);
 									});
 									return deferred.promise;
-
 								},
+								
+								
+								
 								////////////////////////////////////////////////////
 								//helpers
 								addNewTask : function(task_severity) {
