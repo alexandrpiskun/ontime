@@ -10,30 +10,30 @@ ontimeControllers.controller('quaterFromCtrl', [
 		'$route',
 		'$location',
 		function($scope, TaskManager, $route, $location) {
-
 			var self = this;
-
-			// $scope.tasks = [];
 			$scope.chart = TaskManager.getChartTemplate(0);
 
 			// init
 			var params = $route.current.params;
+			
 			if (params != undefined && params["id"] != undefined) {
 				TaskManager.getById(params.id).then(function(data) {
 					$scope.chart = data;
+				},function(data){
+					$location.path("/", false);
 				});
 			}
 
 			$scope.sync = function(){
 				TaskManager.updateChart($scope.chart).then(function(data) {
 					if ($scope.chart.id != data.id){
-						$location.path("/"+data.id);
+						$location.path("/"+data.id, false);
 					}
 					$scope.chart = data;
 				});
 			}
 			
-			$scope.addNewNote = function(dropId) {
+			$scope.addNewTask = function(dropId) {
 				var task = TaskManager.getChartTemplate(dropId);
 					task.id = Math.round(Math.random()*1000000);
 				$scope.chart.items.push(task);
@@ -50,7 +50,9 @@ ontimeControllers.controller('quaterFromCtrl', [
 				$scope.sync();
 			};
 			
-			
+			$scope.updateTask = function(task){
+				TaskManager.updateChart($scope.chart);
+			}
 			
 
 			// functions

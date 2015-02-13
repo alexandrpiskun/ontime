@@ -94,9 +94,13 @@ ontimeFactories
 									$http( {
 												method : 'GET',
 												url : '/api/v1/'+id,
-											}).success(function(resp) {
-										deferred.resolve(resp);
-									});
+											})
+											.success(function(resp) {
+												deferred.resolve(resp);
+											})
+											.error(function(resp,status) {
+												deferred.reject(resp);
+											});
 									return deferred.promise;
 								},
 								

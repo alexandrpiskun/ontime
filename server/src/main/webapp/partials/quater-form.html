@@ -18,7 +18,7 @@
                     <h1>u<br/>r<br/>g<br/>e<br/>n<br/>t</h1>
                 </td>
                 <td style="background:#FFDFBF; position: relative" dd-drop-target="true" dropid="4">
-                    <div style="position: absolute; top: 0px; right:0px"> <button ng-click="addNewNote(4)">+</button></div>
+                    <div style="position: absolute; top: 0px; right:0px"> <button ng-click="addNewTask(4)">+</button></div>
                     <div  style="height: 100%; width: 100%; position: relative">                         
                         <task-item  ng-repeat="t in chart.items | filter:{severity:4}" t="t" /> 
                     <div>
@@ -35,7 +35,7 @@
             </tr>
             <tr>
                 <td style="background:#FFDFBF; position: relative" dd-drop-target="true" dropid="3">
-                    <div style="position: absolute; top: 0px; right:0px"> <button ng-click="addNewNote(3)">+</button></div>
+                    <div style="position: absolute; top: 0px; right:0px"> <button ng-click="addNewTask(3)">+</button></div>
                     <div  style="height: 100%; width: 100%; position: relative">                         
                         <task-item  ng-repeat="t in chart.items | filter:{severity:3}" t="t" /> 
                     <div>
@@ -57,7 +57,7 @@
                     <h1>n<br/>o<br/>t<br/><br/>u<br/>r<br/>g<br/>e<br/>n<br/>t</h1>
                 </td>
                 <td style="background:#FFDFBF; position: relative" dd-drop-target="true" dropid="2">
-                    <div style="position: absolute; top: 0px; right:0px"> <button ng-click="addNewNote(2)">+</button></div>
+                    <div style="position: absolute; top: 0px; right:0px"> <button ng-click="addNewTask(2)">+</button></div>
                     <div  style="height: 100%; width: 100%; position: relative">                         
                         <task-item  ng-repeat="t in chart.items | filter:{severity:2}" t="t" /> 
                     <div>
@@ -75,7 +75,7 @@
         <table class="wrapper">
             <tr>
                 <td style="background:#FFDFBF; position: relative" dd-drop-target="true" dropid="1">
-                    <div style="position: absolute; top: 0px; right:0px"> <button ng-click="addNewNote(1)">+</button></div>
+                    <div style="position: absolute; top: 0px; right:0px"> <button ng-click="addNewTask(1)">+</button></div>
                     <div  style="height: 100%; width: 100%; position: relative" >                         
                         <task-item  ng-repeat="t in chart.items | filter:{severity:1}" t="t" /> 
                     <div>
